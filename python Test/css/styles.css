@@ -1,0 +1,571 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 顶部导航栏 */
+.navbar {
+    display: flex;
+    background-color: #2c3e50;
+    padding: 0 20px;
+    height: 50px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nav-item {
+    position: relative;
+    margin-right: 20px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 15px 10px;
+    display: block;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    background-color: #34495e;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.nav-item:hover .dropdown-content {
+    display: block;
+}
+
+/* 消息模块样式 */
+#message-menu {
+    position: relative;
+    margin-left: auto;
+}
+
+#message-menu .nav-link {
+    position: relative;
+}
+
+.message-count {
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: none;
+}
+
+.message-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    min-width: 400px;  /* 扩大最小宽度 */
+    max-width: 500px;  /* 扩大最大宽度 */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: none;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.message-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.message-content {
+    max-height: 400px;  /* 扩大最大高度 */
+    overflow-y: auto;
+    padding: 15px;  /* 增加内边距 */
+}
+
+.no-messages {
+    text-align: center;
+    color: #666;
+    padding: 30px;  /* 增加内边距 */
+    margin: 0;
+}
+
+.message-item {
+    padding: 15px;  /* 增加内边距 */
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}
+
+.message-item:hover {
+    background-color: #f8f9fa;
+}
+
+.message-item.unread .message-text {
+    font-weight: bold;
+}
+
+.message-item.read .message-text {
+    font-weight: normal;
+    color: #666;
+}
+
+.message-text {
+    margin-bottom: 8px;  /* 增加底部边距 */
+    line-height: 1.5;  /* 增加行高 */
+    font-size: 14px;  /* 增加字体大小 */
+}
+
+.message-time {
+    font-size: 12px;
+    color: #999;
+}
+
+/* 主容器 */
+.main-container {
+    display: flex;
+    height: calc(100vh - 200px);
+    padding: 5px; /* 减小整体内边距 */
+    gap: 3px; /* 使用更小的间隔 */
+}
+
+/* 侧边栏 */
+.sidebar {
+    width: 150px;
+    background-color: #fff;
+    padding: 10px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.left-sidebar {
+    margin-right: 0;
+}
+
+.right-sidebar {
+    margin-left: 0;
+}
+
+.sidebar h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* 颜色选项 */
+.color-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px; /* 减小颜色选项之间的间隔 */
+    margin-bottom: 15px;
+}
+
+.color-item {
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+    box-sizing: border-box;
+}
+
+.color-item:hover {
+    transform: scale(1.1);
+}
+
+.color-item.active {
+    border-color: #000;
+    border-width: 2px;
+    border-style: solid;
+    transform: scale(1.1);
+}
+
+.transparency-control {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.transparency-control label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.transparency-control input {
+    width: 100%;
+}
+
+/* 图表设置模块 */
+.chart-settings {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.chart-settings h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.setting-item {
+    margin-bottom: 8px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 12px;
+    color: #666;
+}
+
+.setting-item input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.setting-item input[type="number"] {
+    padding: 4px;
+}
+
+/* 主显示区域 */
+.main-content {
+    flex: 1;
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.chart-container {
+    flex: 1;
+    position: relative;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+#chartCanvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100%;
+}
+
+#placeholder-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #999;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* 图表类型区域 */
+.chart-types {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.chart-type {
+    position: relative;
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chart-type:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.chart-type.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* 下拉箭头样式 */
+.dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.chart-type.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* 子类型下拉菜单样式 */
+.chart-subtypes {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 120px;
+    display: none;
+    margin-top: 5px;
+}
+
+.chart-type.active .chart-subtypes {
+    display: block;
+}
+
+.subtype-option {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.subtype-option:last-child {
+    border-bottom: none;
+}
+
+.subtype-option:hover,
+.subtype-option:focus {
+    background-color: #f8f9fa;
+    outline: none;
+}
+
+.subtype-option.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* 子类型预览样式 */
+.subtype-preview {
+    width: 80px;
+    height: 60px;
+    margin-bottom: 5px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subtype-label {
+    font-size: 12px;
+    color: #333;
+}
+
+.subtype-option.active .subtype-label {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* 新增小提琴图样式 */
+.violin-plot {
+    /* 小提琴图的特定样式 */
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.apply-btn:hover {
+    background-color: #218838;
+}
+
+/* 底部交互窗口 */
+.interactive-panel {
+    background-color: #fff;
+    padding: 10px;
+    margin: 5px;
+    flex-shrink: 0;
+    resize: vertical;
+    overflow: hidden;
+    min-height: 150px;
+    height: auto;
+}
+
+.interactive-panel h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.data-input-container {
+    display: flex;
+    gap: 10px;
+    height: calc(100% - 30px);
+}
+
+#data-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    min-height: 100px;
+}
+
+.input-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.process-btn, .send-btn {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+.process-btn:hover, .send-btn:hover {
+    background-color: #0069d9;
+}
+
+.send-btn {
+    background-color: #28a745;
+}
+
+.send-btn:hover {
+    background-color: #218838;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .sidebar {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .left-sidebar, .right-sidebar {
+        margin: 5px 0;
+    }
+    
+    .data-input-container {
+        flex-direction: column;
+    }
+    
+    .input-buttons {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+    
+    .interactive-panel {
+        min-height: 200px;
+    }
+    
+    /* 在移动端隐藏分隔条 */
+    .sidebar::after {
+        display: none;
+    }
+    
+    .message-dropdown {
+        min-width: 300px;
+        max-width: 350px;
+        right: -50px;
+    }
+    
+    .message-content {
+        max-height: 300px;
+    }
+    
+    .message-text {
+        font-size: 13px;
+    }
+}
